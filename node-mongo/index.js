@@ -7,11 +7,13 @@ const dbname = 'conFusion'
 MongoClient.connect(url)
 .then((err,client) => {
     
+    console.log('error inside', err)
+    console.log('client inside', client)
     assert.equal(err,null);
     console.log('Connected Correctly to server');
 
     const db = client.db(dbname);
-
+    
     dboper.insertDocument(db,{name:"Dominos",description:"Pizza"},'dishes')
     .then((result)=>{
         console.log("Insert Document:\n",result.ops);
@@ -41,4 +43,4 @@ MongoClient.connect(url)
     .catch((err)=>console.log(err));
 
 })
-.catch((err)=> console.log(err));
+.catch((err)=> console.log('final catch', err));
