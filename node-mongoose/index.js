@@ -9,12 +9,12 @@ const connect = mongoose.connect(url)
 connect.then((db)=> {
     console.log("Connected Correctly to server")
 
-    var newDish = Dishes({
+    Dishes.create({
         name:"Pizza Hut",
         description:"Pan Pizzas"
 
     })
-    newDish.save()
+    
     .then((dish)=>{
         console.log(dish)
         return Dishes.find({}).exec();
@@ -29,5 +29,6 @@ connect.then((db)=> {
     .catch((err)=>{
         console.log(err)
     });
+
 
 }).catch((err)=>console.log(err))
