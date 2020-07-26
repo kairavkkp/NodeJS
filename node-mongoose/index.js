@@ -17,10 +17,25 @@ connect.then((db)=> {
     
     .then((dish)=>{
         console.log(dish)
-        return Dishes.find({}).exec();
+        return Dishes.findByIdAndUpdate(dish._id,{
+            $set:{ description: "Updated Text"}
+        },{
+            new:true
+        }).exec();
     })
-    .then((dishes)=>{
-        console.log(dishes)
+    .then((dish)=>{
+        console.log(dish)
+
+        dish.comments.push({
+            rating:5,
+            comment:"I\'m having time of my life.",
+            author:"KKP"
+        })
+
+        return dish.save()
+    })
+    .then((dish)=>{
+        console.log(dish)
         return Dishes.deleteMany({})
     })
     .then(()=>{
