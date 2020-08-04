@@ -3,15 +3,23 @@ const bodyParser = require('body-parser')
 const User = require('../models/users');
 const { route } = require('.');
 var passport = require('passport')
-var authenticate = require('../authenticate')
+var authenticate = require('../authenticate');
+const { restart } = require('nodemon');
 
 
 var router = express.Router();
 
 router.use(bodyParser.json())
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+
+
+router.get('/',authenticate.verifyAdmin, function(req, res, next) {
+  User.find({})
+  .then((user)=>{
+    res.setHeader('Content-Type','application/json')
+    res.statusCode = 200
+    res.json(user)
+  })
 });
 
 router.post('/signup',(req,res,next)=>{
