@@ -61,7 +61,7 @@ exports.verifyAdmin = (req,res,next) => {
     var token = (req.headers.authorization.split(' ')[1])
     var verify = jwt.verify(token,config.secretKey,(err,decoded)=>{
         if(err){
-            console.log(err)
+            next(err)
         }
         else{
             //console.log(decoded)
