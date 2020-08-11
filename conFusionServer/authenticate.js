@@ -90,9 +90,6 @@ exports.facebookPassport = passport.use(new FacebookTokenStrategy({
         }
         else{
             if(!err && user!=null){
-                user.facebookId = profile.id;
-                user.firstname = profile.name.givenName;
-                user.lastname = profile.name.familyName;
                 return done(null,user);
             }
             else{
